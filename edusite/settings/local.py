@@ -25,9 +25,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.flatpages',
     'django_markdown',
     'posts',
+    'site_details',
+    'notifications',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -42,7 +43,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'edusite.urls'
 
-SITE_ID = 3
+SITE_ID = 1
 
 WSGI_APPLICATION = 'edusite.wsgi.application'
 

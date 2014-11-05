@@ -1,13 +1,22 @@
-{% extends "base.html" %}
+{% extends "instructor_base.html" %}
+{% load staticfiles %}
 {% load django_markdown %}
 
-{% block post_entries %}
+{% block content %}
   <div class="post">
     <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
     <p class="meta">
       {{ object.created }} |
-      Tagged under {{  object.tags.all|join:", " }}
+      tags: {{  object.tags.all|join:", " }}
     </p>
     {{ object.body|markdown }}
+  </div>
+{% endblock %}
+
+{% block side %}
+  <div class="sidebar-module sidebar-module-inset">
+    <img src="{% static "img/instructor.png" %}" class="img-responsive" alt="Instructor">
+    <h4>About</h4>
+    <p>Test: {{ object.title }}</p>
   </div>
 {% endblock %}

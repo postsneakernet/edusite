@@ -2,26 +2,27 @@
 {% load django_markdown %}
 
 {% block headertitle %}
-<title>About</title>
+<title>Research</title>
 {% endblock %}
 
 {% block nav %}
 <a class="blog-nav-item" href="/">Home</a>
 <a class="blog-nav-item" href="/courses/">Courses</a>
-<a class="blog-nav-item" href="/detail/research/">Research</a>
+<a class="blog-nav-item active" href="/detail/research/">Research</a>
 <a class="blog-nav-item" href="/detail/lab/">Lab</a>
-<a class="blog-nav-item active" href="/detail/about/">About</a>
+<a class="blog-nav-item" href="/detail/about/">About</a>
 {% endblock %}
 
 {% block title %}
-<h1 class="blog-title">About</h1>
+<h1 class="blog-title">Research</h1>
 <p class="lead blog-description">{{ instructor_name }}</p>
+<p class="lead blog-description">{{ instructor_title }}</p>
 {% endblock %}
 
 {% block content %}
 <div class="post">
   <p class="meta">
-    {{ about|markdown }}
+    {{ research|markdown }}
   </p>
 </div>
 {% endblock %}

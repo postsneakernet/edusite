@@ -3,10 +3,11 @@ from django.contrib import admin
 
 urlpatterns = patterns(
     '',
+    url(r'^detail/', include('site_details.urls')),
+    url(r'^notifications/', include('notifications.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^markdown/', include("django_markdown.urls")),
     url(r'^', include('posts.urls')),
-    url(r'test/$', 'flatpage', {'url': '/test/'}, name='test'),
 )
 
 handler404 = 'edusite.views.error404'
