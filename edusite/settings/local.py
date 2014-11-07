@@ -7,8 +7,8 @@ Not suitable for production server--use production.py instead.
 import os
 from .base import *
 
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 

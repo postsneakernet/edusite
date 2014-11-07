@@ -10,7 +10,7 @@
     <link rel="icon" href="{% static "icons/favicon.ico" %}">
     <link href="/feed/" rel="alternate" type="application/rss+xml" title="Edusite" />
     {% block headertitle %}
-    <title>Instructor Home</title>
+    <title>{{ about.0.title }}</title>
     {% endblock %}
 
     <!-- Bootstrap core CSS -->
@@ -50,7 +50,7 @@
 
       <div class="blog-header">
         {% block title %}
-        <h1 class="blog-title">Instructor Home</h1>
+        <h1 class="blog-title">{{ about.0.instructor_name }}</h1>
         <p class="lead blog-description">Instructor posts</p>
         {% endblock %}
       </div>

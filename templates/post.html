@@ -16,7 +16,9 @@
 {% block side %}
   <div class="sidebar-module sidebar-module-inset">
     <img src="{% static "img/instructor.png" %}" class="img-responsive" alt="Instructor">
-    <h4>About</h4>
-    <p>Test: {{ object.title }}</p>
+    <h4>About this site:</h4>
+    <p>{{ about.0.about|truncatewords:20 }}
+      <a href="/detail/about/">more</a>
+    </p>
   </div>
 {% endblock %}

@@ -19,10 +19,12 @@
 {% endblock %}
 
 {% block content %}
+{% for item in notifications %}
 <div class="post">
-  <h3>{{ title }}</h3>
+  <h3>{{ item.title }}</h3>
   <p class="meta">
-    {{ body|markdown }}
+    {{ item.body|markdown }}
   </p>
 </div>
+{% endfor %}
 {% endblock %}

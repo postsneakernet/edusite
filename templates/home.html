@@ -2,14 +2,11 @@
 {% load staticfiles %}
 
 {% block alert %}
-{% if true %}
 <div class="alert alert-warning" role="alert">
-  {{ body }}
+  {{ notifications.0.body }} ...
   <a href="/notifications/index/" class="alert-link">
-    ...more</a>
+    more</a>
 </div>
-{% endif %}
-
 {% endblock %}
 
 {% block content %}
