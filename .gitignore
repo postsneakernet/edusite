@@ -47,7 +47,6 @@ coverage.xml
 # Django stuff:
 *.log
 secrets.json
-media/
 *.sqlite3
 
 # Sphinx documentation
