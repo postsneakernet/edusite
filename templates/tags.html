@@ -1,0 +1,37 @@
+{% extends "post.html" %}
+{% load staticfiles %}
+{% load django_markdown %}
+
+{% block headertitle %}
+<title>Tag Search: {{ search_tag }}</title>
+{% endblock %}
+
+
+{% block title %}
+<h1 class="blog-title">Tag Search</h1>
+<p class="lead blog-description">Posts tagged with: {{ search_tag }}</p>
+{% endblock %}
+
+
+{% block content %}
+{% if posts %}
+{% for post in posts %}
+<div class="post">
+  <h2><a href="{% url "entry_detail" slug=post.slug %}">{{ post.title }}</a></h2>
+  <p class="meta">
+    {{ post.created }} |
+    tags: {{ post.tags.all|join:", " }}
+  </p>
+  {{ post.body|markdown }}
+</div>
+
+{% endfor %}
+
+{% else %}
+<div class="post">
+  <p class="meta">
+    No posts found.
+  </p>
+</div>
+{% endif %}
+{% endblock %}

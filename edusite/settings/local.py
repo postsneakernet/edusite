@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'posts',
     'site_details',
     'notifications',
+    'courses',
 )
 
 MIDDLEWARE_CLASSES = (

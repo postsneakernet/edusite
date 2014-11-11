@@ -1,0 +1,74 @@
+{% extends "course_base.html" %}
+{% load django_markdown %}
+
+{% block headertitle %}
+<title>Modules</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
+<a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Modules</h1>
+<p class="lead blog-description">{{ course.title }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  {% if modules %}
+  {% for module in modules %}
+  <p class="meta">
+    <a href="{% url 'module_detail' course_slug=course.slug module_slug=module.slug %}">
+      {{ module.title }}: {{ module.topic }}
+    </a>
+  </p>
+  {% endfor %}
+  {% else %}
+  <p class ="meta">
+    No modules found.
+  </p>
+  {% endif %}
+  <p class="meta">
+    {% if latest_module %}
+    Last modified on {{ latest_module.0.modified }}
+    {% else %}
+    Last modified on {{ course.modified }}
+    {% endif %}
+  </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  {% if modules %}
+  <h4><a href="{% url 'module_detail' course_slug=course.slug module_slug=latest_module.0.slug %}">
+  Latest Module:</a></h4>
+  {% else %}
+    <h4>Latest Module:</h4>
+  {% endif %}
+  {% if latest_module %}
+  <p>
+      {{ latest_module.0.topic }}
+    <ul>
+      <li>
+        {{ latest_module.0.body|markdown|truncatewords:20 }}
+      </li>
+    </ul>
+  </p>
+  <p>Student Activity
+    <ul>
+      <li>
+        {{ latest_module.0.activity|markdown|truncatewords:20 }}
+      </li>
+    </ul>
+  </p>
+  {% else %}
+  <p>No recent activity.</p>
+  {% endif %}
+</div>
+{% endblock %}

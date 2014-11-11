@@ -1,16 +1,50 @@
-{% extends "post.html" %}
+{% extends "instructor_base.html" %}
 {% load staticfiles %}
+{% load django_markdown %}
+
 
 {% block alert %}
+{% if notifications %}
 <div class="alert alert-warning" role="alert">
-  {{ notifications.0.body }} ...
-  <a href="/notifications/index/" class="alert-link">
+  {{ notifications.0.body|markdown }} ...
+  <a href="{% url 'notifications' %}" class="alert-link">
     more</a>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block content %}
+{% if object_list %}
 {% for object in object_list %}
-  {{ block.super }}
+<div class="post">
+  <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
+  <p class="meta">
+    {{ object.created }} |
+    tags: {{ object.tags.all|join:", " }}
+  </p>
+  {{ object.body|markdown }}
+</div>
 {% endfor %}
+
+{% else %}
+<div class="post">
+  <p class="meta">
+    No posts found.
+  </p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  {% if about.0.photo %}
+  <p>
+  <img src="{{ MEDIA_URL }}{{ about.0.photo }}" class="img-responsive" alt="Instructor">
+  </p>
+  {% endif %}
+  <h4>About this site:</h4>
+  <p>{{ about.0.about|truncatewords:20 }}
+    <a href="/detail/about/">more</a>
+  </p>
+</div>
 {% endblock %}

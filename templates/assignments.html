@@ -1,0 +1,71 @@
+{% extends "course_base.html" %}
+{% load django_markdown %}
+
+{% block headertitle %}
+<title>Assignments</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
+<a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Assignments</h1>
+<p class="lead blog-description">{{ course.title }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  {% if assignments %}
+  {% for assignment in assignments %}
+  <p class="meta">
+      <h3>{{ assignment.title }}&nbsp
+      {% if assignment.misc_file %}
+      <a href="{{ MEDIA_URL }}{{ assignment.misc_file }}" title="download assignment file">
+        <span class="glyphicon glyphicon-cloud-download"></span>
+      </a>&nbsp
+      {% endif %}
+
+      {% if assignment.assignment_pdf %}
+      <a href="{{ MEDIA_URL }}{{ assignment.assignment_pdf }}" title="download assignment pdf">
+        <span class="glyphicon glyphicon-book"></span>
+      </a>
+      {% endif %}
+    </h3>
+      Due date: {{ assignment.due_date }} <br>
+      {{ assignment.body|markdown }}
+  </p>
+  {% endfor %}
+  {% else %}
+  <p class ="meta">
+    No assignments found.
+  </p>
+  {% endif %}
+  <p class="meta">
+    Last modified on {{ course.modified }}
+  </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+    <h4>Latest Assignment:</h4>
+  {% if latest_assignment %}
+  <p>
+      <b>{{ latest_assignment.0.title }}</b><br>
+      Due: {{ latest_assignment.0.due_date }}
+    <ul>
+      <li>
+        {{ latest_assignment.0.body|markdown|truncatewords:20 }}
+      </li>
+    </ul>
+  </p>
+  {% else %}
+  <p>No recent activity.</p>
+  {% endif %}
+</div>
+{% endblock %}

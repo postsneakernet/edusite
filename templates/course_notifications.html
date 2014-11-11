@@ -1,0 +1,55 @@
+{% extends "course_base.html" %}
+{% load django_markdown %}
+
+{% block headertitle %}
+<title>Notifications</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Notifications</h1>
+<p class="lead blog-description">{{ instructor_name }}</p>
+{% endblock %}
+
+{% block content %}
+{% if notifications %}
+{% for item in notifications %}
+<div class="post">
+  <h3>{{ item.title }}</h3>
+  <p class="meta">
+    {{ item.body|markdown }}
+  </p>
+</div>
+{% endfor %}
+{% else %}
+<div class="post">
+  <p class="meta">
+    No notifications found.
+  </p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block side %}
+  <div class="sidebar-module sidebar-module-inset">
+    <h4>Latest Post:</h4>
+    {% if posts %}
+    <p>
+      <b>{{ posts.0.title }}:</b><br>
+      {{ posts.0.body|truncatewords:20 }}
+      <a href="{% url 'course_post' course_slug=course.slug post_slug=posts.0.slug %}">more</a>
+    </p>
+    {% else %}
+    <p>
+      No posts found.
+    </p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -15,8 +15,7 @@
 
 {% block title %}
 <h1 class="blog-title">Research</h1>
-<p class="lead blog-description">{{ instructor_name }}</p>
-<p class="lead blog-description">{{ instructor_title }}</p>
+<p class="lead blog-description">{{ instructor_name }}, {{ instructor_title }}</p>
 {% endblock %}
 
 {% block content %}
@@ -28,5 +27,28 @@
     Last modified on
     {{ modified }}
   </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  {% if research_photo %}
+  <p>
+  <img src="{{ MEDIA_URL }}{{ research_photo }}" class="img-responsive" alt="Research">
+  </p>
+  {% endif %}
+  <h3>Curriculum Vitae</h3>
+  <h4>Education</h4>
+  <p>
+    {{ education|markdown }}
+  </p>
+<h4>Employment</h4>
+<p>
+{{ employment|markdown }}
+</p>
+<h4>Other Appointments</h4>
+<p>
+{{ other_resume|markdown }}
+</p>
 </div>
 {% endblock %}

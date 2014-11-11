@@ -3,36 +3,39 @@ from site_details.models import Detail
 
 
 def about(request):
-    list = Detail.objects.all()
-    about = list[0].about
-    instructor_name = list[0].instructor_name
-    modified = list[0].modified
-    context = {'about': about,
-            'instructor_name': instructor_name,
-            'modified': modified,
+    info = Detail.objects.all()
+    context = {'about': info[0].about,
+            'instructor_name': info[0].instructor_name,
+            'modified': info[0].modified,
+            'office': info[0].office,
+            'email': info[0].email,
+            'photo': info[0].photo,
             }
+    
     return render(request, 'about.html', context)
 
 def lab(request):
-    list = Detail.objects.all()
-    lab = list[0].lab
-    instructor_name = list[0].instructor_name
-    modified = list[0].modified
-    context = {'lab': lab,
-            'instructor_name': instructor_name,
-            'modified': modified,
+    info = Detail.objects.all()
+    context = {'lab': info[0].lab,
+            'lab_name': info[0].lab_name,
+            'lab_room': info[0].lab_room,
+            'lab_photo': info[0].lab_photo,
+            'instructor_name': info[0].instructor_name,
+            'modified': info[0].modified,
             }
+
     return render(request, 'lab.html', context)
 
 def research(request):
-    list = Detail.objects.all()
-    research = list[0].research
-    instructor_name = list[0].instructor_name
-    instructor_title = list [0].instructor_title
-    modified = list[0].modified
-    context = {'research': research, 
-            'instructor_name': instructor_name,
-            'instructor_title': instructor_title,
-            'modified': modified,
+    info = Detail.objects.all()
+    context = {'research': info[0].research, 
+            'research_photo': info[0].research_photo,
+            'instructor_name': info[0].instructor_name,
+            'instructor_title': info[0].instructor_title,
+            'modified': info[0].modified,
+            'education': info[0].education,
+            'employment': info[0].employment,
+            'other_resume': info[0].other_resume,
             }
+
     return render(request, 'research.html', context)

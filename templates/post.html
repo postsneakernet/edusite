@@ -4,7 +4,7 @@
 
 {% block content %}
   <div class="post">
-    <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
+    <h2>{{ object.title }}</a></h2>
     <p class="meta">
       {{ object.created }} |
       tags: {{  object.tags.all|join:", " }}
@@ -14,11 +14,18 @@
 {% endblock %}
 
 {% block side %}
-  <div class="sidebar-module sidebar-module-inset">
-    <img src="{% static "img/instructor.png" %}" class="img-responsive" alt="Instructor">
-    <h4>About this site:</h4>
-    <p>{{ about.0.about|truncatewords:20 }}
-      <a href="/detail/about/">more</a>
-    </p>
-  </div>
+<div class="sidebar-module sidebar-module-inset">
+  <h4>Tags</h4>
+  {% if tags %}
+  {% for tag in tags %}
+  <p>
+    <h4><a href="{% url 'tag_index' tag_slug=tag.slug %}">{{ tag.slug }}</a></h4>
+  </p>
+  {% endfor %}
+  {% else %}
+  <p>
+    No tags found.
+  </p>
+  {% endif %}
+</div>
 {% endblock %}

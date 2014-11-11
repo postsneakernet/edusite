@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from courses.models import Course
+
+
 class Tag(models.Model):
     slug = models.SlugField(max_length=200, unique=True, verbose_name="tag name")
 
@@ -15,12 +18,13 @@ class EntryQuerySet(models.QuerySet):
 
 class Entry(models.Model):
     title = models.CharField(max_length=200)
-    body = models.TextField()
     slug = models.SlugField(max_length=200, unique=True, verbose_name="unique name")
-    publish = models.BooleanField(default=True)
+    course = models.ForeignKey(Course, null=True, blank=True)
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     tags = models.ManyToManyField(Tag)
+    publish = models.BooleanField(default=True)
 
     objects = EntryQuerySet.as_manager()
 
@@ -31,6 +35,6 @@ class Entry(models.Model):
         return reverse("entry_detail", kwargs={"slug": self.slug})
 
     class Meta:
-        verbose_name = "Post Entry"
-        verbose_name_plural = "Post Entries"
+        verbose_name = "Post"
+        verbose_name_plural = "Posts"
         ordering = ["-created"]

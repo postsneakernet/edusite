@@ -1,0 +1,59 @@
+{% extends "course_base.html" %}
+{% load django_markdown %}
+
+{% block headertitle %}
+<title>Syllabus</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
+<a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Syllabus</h1>
+<p class="lead blog-description">{{ course.title }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  <p class="meta">
+    {{ course.syllabus|markdown }}
+  </p>
+  <p class="meta">
+    Last modified on
+    {{ course.modified }}
+  </p>
+</div>
+{% endblock %}
+
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  {% if course.syllabus_pdf %}
+  <p><h3>
+    <a href="{{ MEDIA_URL }}{{ course.syllabus_pdf }}" title="download syllabus pdf">
+      <span class="glyphicon glyphicon-book"></span>
+    </a>
+  </h3>
+  </p>
+  {% endif %}
+  <h4>Grade Detail:</h4>
+  <p>
+    {% if course.grades %}
+    {{ course.grades }}
+    {% else %}
+    No grade detail specified.
+    {% endif %}
+  </p>
+  <h4>Final Exam:</h4>
+  {% if course.final %}
+  <p>{{ course.final }}</p>
+  {% else %}
+  <p>No final specified.</p>
+  {% endif %}
+</div>
+{% endblock %}

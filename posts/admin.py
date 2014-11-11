@@ -1,10 +1,12 @@
 from django.contrib import admin
-from . import models
 from django_markdown.admin import MarkdownModelAdmin
+
+from . import models
 
 
 class EntryAdmin(MarkdownModelAdmin):
-    list_display = ("title", "created")
+    list_display = ("title", "course", "created", "publish")
+    ordering = ['course']
     prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(models.Entry, EntryAdmin)

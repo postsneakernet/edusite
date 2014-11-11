@@ -1,0 +1,50 @@
+{% extends "course_base.html" %}
+{% load staticfiles %}
+{% load django_markdown %}
+
+{% block alert %}
+{% if notifications %}
+<div class="alert alert-warning" role="alert">
+  {{ notifications.0.body }} ...
+  <a href="{% url 'course_notifications' course_slug=course.slug %}" class="alert-link">
+    more</a>
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if posts %}
+{% for post in posts %}
+<div class="post">
+  <h2><a href="{% url 'course_post' course_slug=course.slug post_slug=post.slug %}">{{ post.title }}</a></h2>
+  <p class="meta">
+    {{ post.created }} |
+    tags: {{ post.tags.all|join:", " }}
+  </p>
+  {{ post.body|markdown }}
+</div>
+{% endfor %}
+
+{% else %}
+<div class="post">
+  <p class="meta">
+    No posts found.
+  </p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block side %}
+  <div class="sidebar-module sidebar-module-inset">
+    {% if course.photo %}
+    <p>
+    <img src="{{ MEDIA_URL }}{{ course.photo }}" class="img-responsive" alt="Course">
+    </p>
+    {% endif %}
+    <h4>About this course:</h4>
+    <p>{{ course.syllabus|truncatewords:20 }}
+      <a href="{% url 'course_home' course.slug %}syllabus/">more</a>
+    </p>
+  </div>
+{% endblock %}

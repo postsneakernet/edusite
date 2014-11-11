@@ -3,5 +3,5 @@ from notifications import views
 
 urlpatterns = patterns(
     '',
-    url(r'^index/', views.IndexView.as_view(), name='index'),
+    url(r'^$', views.IndexView.as_view(), name='notifications'),
 )

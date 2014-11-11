@@ -1,0 +1,97 @@
+{% extends "course_base.html" %}
+{% load django_markdown %}
+
+.invert
+{
+width: 100px;
+height: 100px;
+ background-color: yellow !important;
+}
+.blackBg
+{
+  background-color: black !important;
+}
+
+
+{% block headertitle %}
+<title>{{ module.title }}</title>
+{% endblock %}
+
+
+{% block nav %}
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
+<a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title" id="module1">{{ module.title }}</h1>
+<p class="lead blog-description" id="module2">{{ module.topic }}</p>
+{% endblock %}
+
+
+{% block content %}
+<div class="post" id="module3">
+  <p class="meta" id="module4">
+      {{ module.body|markdown }}
+  </p>
+  <p class="meta" id="module5">
+    Last modified on {{ module.modified }}
+  </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  <p><h3>
+<a href="javascript:" onclick="invertUi('#505050', 'white');" title="invert ui">
+  <span class="glyphicon glyphicon-eye-open" id="invert"></span>
+</a> &nbsp
+{% if files %}
+<a href="{% url 'get_files' course_slug=course.slug module_slug=module.slug %}" title="download all files">
+  <span class="glyphicon glyphicon-cloud-download"></span>
+</a> &nbsp
+{% endif %}
+{% if module.module_pdf %}
+<a href="{{ MEDIA_URL }}{{ module.module_pdf }}" title="download module pdf">
+  <span class="glyphicon glyphicon-book"></span>
+</a>
+{% endif %}
+</h3>
+</p>
+  <h4>Student Activities:</h4>
+  {% if module.activity %}
+  <p>{{ module.activity }}</p>
+  {% else %}
+  <p>No activities specified.</p>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+toggle = false;
+function invertUi(bcolor, fcolor) {
+  if (!toggle) {
+   document.body.style.background = bcolor;
+   document.getElementById("module1").style.color = fcolor;
+   document.getElementById("module2").style.color = fcolor;
+   document.getElementById("module3").style.color = fcolor;
+   document.getElementById("module4").style.color = fcolor;
+   document.getElementById("module5").style.color = fcolor;
+   toggle = true;
+ }
+ else {
+   document.body.style.background = 'white';
+   document.getElementById("module1").style.color = 'black';
+   document.getElementById("module2").style.color = 'gray';
+   document.getElementById("module3").style.color = 'black';
+   document.getElementById("module4").style.color = 'black';
+   document.getElementById("module5").style.color = 'gray';
+   toggle = false;
+ }
+}
+</script>
+{% endblock %}

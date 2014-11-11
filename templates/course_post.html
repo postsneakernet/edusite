@@ -1,0 +1,31 @@
+{% extends "course_base.html" %}
+{% load staticfiles %}
+{% load django_markdown %}
+
+{% block content %}
+  <div class="post">
+    <h2>{{ post.title }}</h2>
+    <p class="meta">
+      {{ post.created }} |
+      tags: {{  post.tags.all|join:", " }}
+    </p>
+    {{ post.body|markdown }}
+  </div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  <h4>Tags</h4>
+  {% if tags %}
+  {% for tag in tags %}
+  <p>
+    <h4><a href="{% url 'tag_index' tag_slug=tag.slug %}">{{ tag.slug }}</a></h4>
+  </p>
+  {% endfor %}
+  {% else %}
+  <p>
+    No tags found.
+  </p>
+  {% endif %}
+</div>
+{% endblock %}

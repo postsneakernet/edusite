@@ -15,7 +15,7 @@
 
 {% block title %}
 <h1 class="blog-title">Lab</h1>
-<p class="lead blog-description">{{ instructor_name }}</p>
+<p class="lead blog-description">{{ lab_name }}</p>
 {% endblock %}
 
 {% block content %}
@@ -26,6 +26,20 @@
   <p class="meta">
     Last modified on
     {{ modified }}
+  </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  {% if lab_photo %}
+  <p>
+  <img src="{{ MEDIA_URL }}{{ lab_photo }}" class="img-responsive" alt="Lab">
+  </p>
+  {% endif %}
+  <h4>Location:</h4>
+  <p>
+    {{ lab_room }}
   </p>
 </div>
 {% endblock %}

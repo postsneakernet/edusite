@@ -29,3 +29,20 @@
   </p>
 </div>
 {% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  {% if photo %}
+  <p>
+  <img src="{{ MEDIA_URL }}{{ photo }}" class="img-responsive" alt="Instructor">
+  </p>
+  {% endif %}
+  <h4>Contact:</h4>
+  <p>
+    Office: {{ office }}
+  </p>
+  <p>
+    Email: {{ email }}
+  <P>
+</div>
+{% endblock %}

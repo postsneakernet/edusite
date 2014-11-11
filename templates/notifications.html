@@ -19,6 +19,7 @@
 {% endblock %}
 
 {% block content %}
+{% if notifications %}
 {% for item in notifications %}
 <div class="post">
   <h3>{{ item.title }}</h3>
@@ -27,4 +28,28 @@
   </p>
 </div>
 {% endfor %}
+{% else %}
+<div class="post">
+  <p class="meta">
+    No notifications found.
+  </p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block side %}
+  <div class="sidebar-module sidebar-module-inset">
+    <h4>Latest Post:</h4>
+    {% if posts %}
+    <p>
+      <b>{{ posts.0.title }}:</b><br>
+      {{ posts.0.body|truncatewords:20 }}
+      <a href="{% url "entry_detail" slug=posts.0.slug %}">more</a>
+    </p>
+    {% else %}
+    <p>
+      No posts found.
+    </p>
+    {% endif %}
+  </div>
 {% endblock %}

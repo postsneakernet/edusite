@@ -1,0 +1,48 @@
+{% extends "instructor_base.html" %}
+
+
+{% block headertitle %}
+<title>Courses</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item" href="/">Home</a>
+<a class="blog-nav-item active" href="/courses/">Courses</a>
+<a class="blog-nav-item" href="/detail/research/">Research</a>
+<a class="blog-nav-item" href="/detail/lab/">Lab</a>
+<a class="blog-nav-item" href="/detail/about/">About</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Courses</h1>
+<p class="lead blog-description">Taught by {{ about.0.instructor_name }}</p>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+  {% for course in courses %}
+  <p class="meta">
+    <a href="/courses/{{ course.slug }}/">
+      {{ course.title }}
+    </a>
+  </p>
+  {% endfor %}
+  <p class="meta">
+    Last modified on {{ modified.0.modified }}
+  </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+  <h4>Office Hours:</h4>
+  {% for course in courses %}
+  <p>{{ course.title }}:</p>
+  <ul>
+    <li>
+    {{ course.office_hours }}
+  </li>
+  </ul>
+  {% endfor %}
+</div>
+{% endblock %}
