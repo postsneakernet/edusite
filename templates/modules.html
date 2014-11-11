@@ -52,15 +52,15 @@
     <h4>Latest Module:</h4>
   {% endif %}
   {% if latest_module %}
-  <p>
-      {{ latest_module.0.topic }}
+  <p><h4>{{ latest_module.0.title }}</h4>
+      <b>{{ latest_module.0.topic }}</b>
     <ul>
       <li>
         {{ latest_module.0.body|markdown|truncatewords:20 }}
       </li>
     </ul>
   </p>
-  <p>Student Activity
+  <p><b>Student Activity</b>
     <ul>
       <li>
         {{ latest_module.0.activity|markdown|truncatewords:20 }}

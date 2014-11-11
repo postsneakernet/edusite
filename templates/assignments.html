@@ -46,7 +46,11 @@
   </p>
   {% endif %}
   <p class="meta">
+    {% if latest_assignment %}
+    Last modified on {{ latest_assignment.0.modified }}
+    {% else %}
     Last modified on {{ course.modified }}
+    {% endif %}
   </p>
 </div>
 {% endblock %}

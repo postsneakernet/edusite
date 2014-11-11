@@ -7,7 +7,7 @@ from django.utils import timezone
 
 import os, tempfile, zipfile
 
-from courses.models import Course, Module, Assignment, File
+from courses.models import Course, Module, Assignment, File, Project
 from posts.models import Entry, Tag
 from notifications.models import Notification
 from site_details.models import Detail
@@ -85,6 +85,20 @@ def assignments(request, course_slug):
 
     return render(request, 'assignments.html', {'course': course, 
         'assignments': assignments, 'latest_assignment': latest_assignment})
+
+
+def projects(request, course_slug):
+    course = get_object_or_404(Course, slug=course_slug)
+    p = Project.objects.all().filter(course__slug=course_slug)
+    projects = p.students()
+    requirements = p.requirements().order_by('-created')
+    archives = p.archived()
+    latest_project = requirements.order_by('-created')[:1]
+
+    return render(request, 'projects.html', {'course': course, 
+        'projects': projects, 'latest_project': latest_project,
+        'requirements': requirements, 'archives': archives,
+        })
 
 
 def course_home(request, course_slug):

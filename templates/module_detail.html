@@ -63,7 +63,7 @@ height: 100px;
 </p>
   <h4>Student Activities:</h4>
   {% if module.activity %}
-  <p>{{ module.activity }}</p>
+  <p>{{ module.activity|markdown }}</p>
   {% else %}
   <p>No activities specified.</p>
   {% endif %}

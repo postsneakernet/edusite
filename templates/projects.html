@@ -1,31 +1,129 @@
-{% extends "instructor_base.html" %}
+{% extends "course_base.html" %}
 {% load django_markdown %}
 
 {% block headertitle %}
-<title>About</title>
+<title>Projects</title>
 {% endblock %}
 
 {% block nav %}
-<a class="blog-nav-item" href="/">Home</a>
-<a class="blog-nav-item" href="/courses/">Courses</a>
-<a class="blog-nav-item" href="/detail/research/">Research</a>
-<a class="blog-nav-item" href="/detail/lab/">Lab</a>
-<a class="blog-nav-item active" href="/detail/about/">About</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
+<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
+<a class="blog-nav-item projects" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
 {% endblock %}
 
 {% block title %}
-<h1 class="blog-title">About</h1>
-<p class="lead blog-description">{{ instructor_name }}</p>
+<h1 class="blog-title">Projects</h1>
+<p class="lead blog-description">{{ course.title }}</p>
 {% endblock %}
 
 {% block content %}
 <div class="post">
+  <p><h2>Current Projects:</h2></p>
+  {% if projects %}
+  {% for project in projects %}
   <p class="meta">
-    {{ about|markdown }}
+      <h3>{{ project.title }}&nbsp
+      {% if project.misc_file %}
+      <a href="{{ MEDIA_URL }}{{ project.misc_file }}" title="download project file">
+        <span class="glyphicon glyphicon-cloud-download"></span>
+      </a>&nbsp
+      {% endif %}
+
+      {% if project.project_pdf %}
+      <a href="{{ MEDIA_URL }}{{ project.project_pdf }}" title="download project pdf">
+        <span class="glyphicon glyphicon-book"></span>
+      </a>
+      {% endif %}
+    </h3>
+    <b>Semester:</b> {{ project.semester }} <br>
+    {% if project.group %}
+      <b>Students:</b> {{ project.group }} <br>
+    {% endif %}
+      {{ project.body|markdown }}
   </p>
+  {% endfor %}
+  {% else %}
+  <p class ="meta">
+    No student projects found.
+  </p>
+  {% endif %}
+  <br>
+  <hr>
+
+  <p><h2>Previous Semester Projects:</h2></p>
+  {% if archives %}
+  {% for archive in archives %}
+<p class="meta">
+    <h3>{{ archive.title }}&nbsp
+    {% if archive.misc_file %}
+    <a href="{{ MEDIA_URL }}{{ archive.misc_file }}" title="download project file">
+      <span class="glyphicon glyphicon-cloud-download"></span>
+    </a>&nbsp
+    {% endif %}
+
+    {% if archive.project_pdf %}
+    <a href="{{ MEDIA_URL }}{{ archive.project_pdf }}" title="download project pdf">
+      <span class="glyphicon glyphicon-book"></span>
+    </a>
+    {% endif %}
+  </h3>
+  <b>Semester:</b> {{ archive.semester }} <br>
+  {% if archive.group %}
+    <b>Students:</b> {{ archive.group }} <br>
+  {% endif %}
+    {{ archive.body|markdown }}
+</p>
+  {% endfor %}
+  {% else %}
   <p class="meta">
-    Last modified on
-    {{ modified }}
+    No previous student projects found.
   </p>
+  {% endif %}
+  <p class="meta">
+    {% if latest_project %}
+    Last modified on {{ latest_project.0.modified }}
+    {% else %}
+    Last modified on {{ course.modified }}
+    {% endif %}
+  </p>
+</div>
+{% endblock %}
+
+{% block side %}
+<div class="sidebar-module sidebar-module-inset">
+    <h4>Project Requirements:</h4>
+  {% if requirements %}
+  {% for requirement in requirements %}
+  <p>
+      <b>{{ requirement.title }}</b><br>
+
+      <h3>
+      {% if requirement.misc_file %}
+      <a href="{{ MEDIA_URL }}{{ requirement.misc_file }}" title="download requirement file">
+        <span class="glyphicon glyphicon-cloud-download"></span>
+      </a>&nbsp
+      {% endif %}
+
+      {% if requirement.project_pdf %}
+      <a href="{{ MEDIA_URL }}{{ requirement.project_pdf }}" title="download requirement pdf">
+        <span class="glyphicon glyphicon-book"></span>
+      </a>
+      {% endif %}
+    </h3>
+      {% if requirement.due_date %}
+      Due: {{ requirement.due_date }}
+      {% endif %}
+    <ul>
+      <li>
+        {{ requirement.body|markdown }}
+      </li>
+    </ul>
+  </p>
+  {% endfor %}
+  {% else %}
+  <p>No recent activity.</p>
+  {% endif %}
 </div>
 {% endblock %}

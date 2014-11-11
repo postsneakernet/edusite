@@ -10,6 +10,7 @@ urlpatterns = patterns(
     url(r'^(?P<course_slug>[-\w]+)/modules/$', 'views.modules', name="modules"),
     url(r'^(?P<course_slug>[-\w]+)/assignments/$', 'views.assignments', 
         name="assignments"),
+    url(r'^(?P<course_slug>[-\w]+)/projects/$', 'views.projects', name="projects"),
     url(r'^(?P<course_slug>[-\w]+)/syllabus/$', 'views.syllabus', name="syllabus"),
     url(r'^(?P<course_slug>[-\w]+)/notifications/$', 'views.notifications', 
             name="course_notifications"),

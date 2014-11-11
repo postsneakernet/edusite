@@ -16,7 +16,12 @@ def file_dir(instance, filename):
 
 def assignment_dir(instance, filename):
     return '/'.join(['courses', instance.course.slug, 'assignments', 
-        instance.title, filename])
+        instance.slug, filename])
+
+
+def project_dir(instance, filename):
+    return '/'.join(['courses', instance.course.slug, 'projects', 
+        instance.slug, filename])
 
 
 class ModuleQuerySet(models.QuerySet):
@@ -27,6 +32,17 @@ class ModuleQuerySet(models.QuerySet):
 class AssignmentQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)
+
+
+class ProjectQuerySet(models.QuerySet):
+    def archived(self):
+        return self.filter(publish=True, archive=True, requirement=False)
+
+    def students(self):
+        return self.filter(publish=True, archive=False, requirement=False)
+
+    def requirements(self):
+        return self.filter(publish=True, archive=False, requirement=True)
 
 
 class Course(models.Model):
@@ -75,7 +91,9 @@ class File(models.Model):
 
 class Assignment(models.Model):
     title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="unique name")
     course = models.ForeignKey(Course)
+    semester = models.CharField(max_length=200)
     due_date = models.DateTimeField()
     assignment_pdf = models.FileField(upload_to=assignment_dir, null=True, blank=True)
     misc_file = models.FileField(upload_to=assignment_dir, null=True, blank=True,
@@ -85,8 +103,32 @@ class Assignment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    objects =AssignmentQuerySet.as_manager()
+    objects = AssignmentQuerySet.as_manager()
 
     def __str__(self):
         return self.title
 
+
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="unique name")
+    course = models.ForeignKey(Course)
+    semester = models.CharField(max_length=200)
+    group = models.CharField(max_length=200, null=True, blank=True,
+        verbose_name="students")
+    requirement = models.BooleanField(default=False, 
+        verbose_name="Project requirement submission")
+    due_date = models.DateTimeField(null=True, blank=True)
+    project_pdf = models.FileField(upload_to=project_dir, null=True, blank=True)
+    misc_file = models.FileField(upload_to=project_dir, null=True, blank=True,
+            verbose_name="additional file")
+    body = models.TextField()
+    publish = models.BooleanField(default=True)
+    archive = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    objects = ProjectQuerySet.as_manager()
+
+    def __str__(self):
+        return self.title
