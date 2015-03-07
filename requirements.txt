@@ -1,0 +1,4 @@
+Django==1.7.1
+Markdown==2.5.2
+Pillow==2.6.1
+django-markdown==0.7.1
