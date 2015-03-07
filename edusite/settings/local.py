@@ -14,6 +14,10 @@ TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
     'localhost',        
+    '.fgcu.edu',
+    '.fgcu.edu.',
+    '.satnet.fgcu.edu',
+    '.satnet.fgcu.edu.',
 ]
 
 
@@ -24,12 +28,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django_markdown',
     'posts',
     'site_details',
     'notifications',
     'courses',
+    'hello',
+    'searches',
+    'misc_pages',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,0 +1,52 @@
+{% extends "instructor_base.html" %}
+
+
+{% block headertitle %}
+<title>Misc Pages</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item" href="/">Home</a>
+<a class="blog-nav-item" href="/courses/">Courses</a>
+<a class="blog-nav-item" href="/detail/research/">Research</a>
+<a class="blog-nav-item" href="/detail/lab/">Lab</a>
+<a class="blog-nav-item" href="/detail/about/">About</a>
+<a class="blog-nav-item active"  href="/misc/">Misc</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Misc Pages</h1>
+<p class="lead blog-description"></p>
+{% endblock %}
+
+{% block content %}
+<div class="post">
+<p class="meta">
+{% if misc_pages %}
+    {% for mp in misc_pages %}
+        {% if mp.is_external_link %}
+            {% if mp.external_link %}
+                <a href="{{ mp.external_link }}">
+            {% elif mp.misc_file %}
+                <a href="{{ MEDIA_URL }}{{ mp.misc_file }}">
+            {% else %}
+                <a href="/404/">
+            {% endif %}
+        {% else %}
+            <a href="{% url 'misc_detail' misc_page_slug=mp.slug %}">
+        {% endif %}
+                {{ mp.title }}
+            </a><br>
+  {% endfor %}
+</p>
+<p class="meta">
+Last modified on {{ misc_pages.0.modified }}
+</p>
+
+{% else %}
+<p class="meta">
+No misc pages have been added.
+</p>
+{% endif %}
+</div>
+{% endblock %}

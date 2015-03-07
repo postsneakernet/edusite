@@ -1,0 +1,228 @@
+{% extends "instructor_base.html" %}
+{% load django_markdown %}
+
+
+{% block headertitle %}
+<title>Search Results</title>
+{% endblock %}
+
+{% block nav %}
+<a class="blog-nav-item" href="/">Home</a>
+<a class="blog-nav-item" href="/courses/">Courses</a>
+<a class="blog-nav-item" href="/detail/research/">Research</a>
+<a class="blog-nav-item" href="/detail/lab/">Lab</a>
+<a class="blog-nav-item" href="/detail/about/">About</a>
+<a class="blog-nav-item" href="/misc/">Misc</a>
+{% endblock %}
+
+{% block title %}
+<h1 class="blog-title">Search Results</h1>
+<p class="lead blog-description">Displaying results for: {{ query_string }}</p>
+{% endblock %}
+
+{% block content %}
+
+<div class="post">
+
+<!-- Module search results -->
+<p class="meta">
+<h3>Modules:</h3>
+<ul>
+{% for m in module_entries %}
+<li>
+<a href="{% url 'module_detail' course_slug=m.course.slug module_slug=m.slug %}">
+{{ m.course.title }}: {{ m.title }}: {{ m.topic }}
+</a><br>
+<div>
+{{ m.body|markdown|truncatewords:20 }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Module nothing found -->
+{% if not module_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+<!-- Project search results -->
+<p class="meta">
+<h3>Projects:</h3>
+<ul>
+{% for p in project_entries %}
+<li>
+<a href="{% url 'projects' course_slug=p.course.slug %}">
+{{ p.course.title }} Project: {{ p.title }}
+</a><br>
+<div>
+{{ p.body|markdown|truncatewords:20 }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Project nothing found -->
+{% if not project_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+<!-- Assignment search results -->
+<p class="meta">
+<h3>Assignments:</h3>
+<ul>
+{% for a in assignment_entries %}
+<li>
+<a href="{% url 'assignments' course_slug=a.course.slug %}">
+{{ a.course.title }} Assignment: {{ a.title }}
+</a><br>
+<div>
+{{ a.body|markdown|truncatewords:20 }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Assignment nothing found -->
+{% if not assignment_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+<!-- Course search results -->
+<p class="meta">
+<h3>Courses:</h3>
+<ul>
+{% for c in course_entries %}
+<li>
+<a href="{% url 'course_home' course_slug=c.slug %}">
+{{ c.title }}
+</a><br>
+<div>
+{{ c.syllabus|markdown|truncatewords:20 }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Course nothing found -->
+{% if not course_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+<!-- Post search results -->
+<p class="meta">
+<h3>Posts:</h3>
+<ul>
+{% for p in post_entries %}
+<li>
+{% if p.course.slug %}
+<a href="{% url 'course_post' course_slug=p.course.slug post_slug=p.slug %}">
+{{ p.title }}
+</a><br>
+{% else %}
+<a href="{% url 'entry_detail' slug=p.slug %}">
+{{ p.title }}
+</a><br>
+{% endif %}
+<div>
+{{ p.body|markdown|truncatewords:20 }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Post nothing found -->
+{% if not post_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+<!-- Notification search results -->
+<p class="meta">
+<h3>Notifications:</h3>
+<ul>
+{% for n in notification_entries %}
+<li>
+{% if n.course.slug %}
+<a href="{% url 'course_notifications' course_slug=n.course.slug %}">
+{{ n.title }}
+</a><br>
+{% else %}
+<a href="{% url 'notifications' %}">
+{{ n.title }}
+</a><br>
+{% endif %}
+<div>
+{{ n.body|markdown|truncatewords:20 }}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Notification nothing found -->
+{% if not notification_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+<!-- Misc search results -->
+<p class="meta">
+<h3>Misc Pages:</h3>
+<ul>
+{% for m in misc_entries %}
+<li>
+{% if m.is_external_link %}
+    {% if m.external_link %}
+        <a href="{{ m.external_link }}">
+    {% elif m.misc_file %}
+        <a href="{{ MEDIA_URL }}{{ m.misc_file }}">
+    {% else %}
+        <a href="/404/">
+    {% endif %}
+{% else %}
+    <a href="{% url 'misc_detail' misc_page_slug=m.slug %}">
+{% endif %}
+{{ m.title }}
+</a><br>
+<div>
+{{ m.body|markdown|truncatewords:20 }}
+{% if m.is_external_link %}
+External link or file.
+{% endif %}
+</div>
+</li>
+{% endfor %}
+</ul>
+</p>
+
+<!-- Misc nothing found -->
+{% if not misc_entries %}
+<p class="meta">
+No results found.
+</p>
+{% endif %}
+
+
+</div>
+{% endblock %}

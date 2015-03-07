@@ -2,45 +2,40 @@
 {% load django_markdown %}
 
 {% block headertitle %}
-<title>Lab</title>
+<title>{{ misc_page.title }}</title>
 {% endblock %}
 
 {% block nav %}
 <a class="blog-nav-item" href="/">Home</a>
 <a class="blog-nav-item" href="/courses/">Courses</a>
 <a class="blog-nav-item" href="/detail/research/">Research</a>
-<a class="blog-nav-item active" href="/detail/lab/">Lab</a>
+<a class="blog-nav-item" href="/detail/lab/">Lab</a>
 <a class="blog-nav-item" href="/detail/about/">About</a>
-<a class="blog-nav-item" href="/misc/">Misc</a>
+<a class="blog-nav-item active" href="/misc/">Misc</a>
 {% endblock %}
 
 {% block title %}
-<h1 class="blog-title">Lab</h1>
-<p class="lead blog-description">{{ lab_name }}</p>
+<h1 class="blog-title">{{ misc_page.title }}</h1>
 {% endblock %}
 
 {% block content %}
 <div class="post">
   <p class="meta">
-    {{ lab|markdown }}
+    {{ misc_page.body|markdown }}
   </p>
   <p class="meta">
     Last modified on
-    {{ modified }}
+    {{ misc_page.modified }}
   </p>
 </div>
 {% endblock %}
 
 {% block side %}
+{% if misc_page.side %}
 <div class="sidebar-module sidebar-module-inset">
-  {% if lab_photo %}
   <p>
-  <img src="{{ MEDIA_URL }}{{ lab_photo }}" class="img-responsive" alt="Lab">
-  </p>
-  {% endif %}
-  <h4>Location:</h4>
-  <p>
-    {{ lab_room }}
+    {{ misc_page.side|markdown }}
   </p>
 </div>
+{% endif %}
 {% endblock %}
