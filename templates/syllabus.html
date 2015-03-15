@@ -7,10 +7,10 @@
 
 {% block nav %}
 <a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
-<a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}syllabus/">Syllabus</a>
-<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}modules/">Modules</a>
-<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}assignments/">Assignments</a>
-<a class="blog-nav-item" href="{% url 'course_home' course_slug=course.slug %}projects/">Projects</a>
+<a class="blog-nav-item active" href="{% url 'syllabus' course_slug=course.slug %}">Syllabus</a>
+<a class="blog-nav-item" href="{% url 'modules' course_slug=course.slug %}">Modules</a>
+<a class="blog-nav-item" href="{% url 'assignments' course_slug=course.slug %}">Assignments</a>
+<a class="blog-nav-item" href="{% url 'projects' course_slug=course.slug %}">Projects</a>
 {% endblock %}
 
 {% block title %}

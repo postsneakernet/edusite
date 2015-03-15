@@ -44,7 +44,7 @@
     {% endif %}
     <h4>About this course:</h4>
     <p>{{ course.syllabus|truncatewords:20 }}
-      <a href="{% url 'course_home' course.slug %}syllabus/">more</a>
+      <a href="{% url 'syllabus' course.slug %}">more</a>
     </p>
   </div>
 {% endblock %}
