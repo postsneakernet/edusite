@@ -28,7 +28,7 @@ class MiscPageAdmin(MarkdownModelAdmin):
             'fields': ('is_external_link', 'external_link', ('misc_file',),)
         }),
         ('Misc page content', {
-            'fields': ('body', 'side', 'publish',)
+            'fields': ('file_use', 'body', 'side', 'publish',)
         }),
     )
 
