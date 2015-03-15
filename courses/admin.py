@@ -20,7 +20,7 @@ class ModuleAdmin(MarkdownModelAdmin):
     readonly_fields = ('file_use',)
 
     def file_use(self, instance):
-        msg = "/media/courses/" + instance.course.slug + "/modules/" + instance.slug + "/file"
+        msg = "/~zalewski/media/courses/" + instance.course.slug + "/modules/" + instance.slug + "/file"
         return msg
 
     inlines = [FileInline, ]

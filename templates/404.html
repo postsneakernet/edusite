@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block nav %}
-<a class="blog-nav-item" href="/">Home</a>
-<a class="blog-nav-item" href="/courses/">Courses</a>
-<a class="blog-nav-item" href="/detail/research/">Research</a>
-<a class="blog-nav-item" href="/detail/lab/">Lab</a>
-<a class="blog-nav-item" href="/detail/about/">About</a>
-<a class="blog-nav-item" href="/misc/">Misc</a>
+<a class="blog-nav-item" href="{% url 'index' %}">Home</a>
+<a class="blog-nav-item" href="{% url 'course_index' %}">Courses</a>
+<a class="blog-nav-item" href="{% url 'research' %}">Research</a>
+<a class="blog-nav-item" href="{% url 'lab' %}">Lab</a>
+<a class="blog-nav-item" href="{% url 'about' %}">About</a>
+<a class="blog-nav-item" href="{% url 'misc_index' %}">Misc</a>
 {% endblock %}
 
 {% block title %}

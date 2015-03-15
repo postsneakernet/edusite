@@ -44,7 +44,7 @@
   {% endif %}
   <h4>About this site:</h4>
   <p>{{ about.0.about|truncatewords:20 }}
-    <a href="/detail/about/">more</a>
+  <a href="{% url 'about' %}">more</a>
   </p>
 </div>
 {% endblock %}

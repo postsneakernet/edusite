@@ -11,12 +11,12 @@ import os
 import sys
 
 # add project to path
-sys.path.append('/home/elliot/web_dev/edusite_project/edusite')
+sys.path.append('/home/zalewski/web_dev/edusite_project/edusite')
 
 # add virtualenv site-packages to path
-sys.path.append('/home/elliot/.virtualenvs/edusite_project/lib/python3.4/site-packages/')
+sys.path.append('/home/zalewski/.virtualenvs/edusite_project/lib/python3.3/site-packages')
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "edusite.settings.production")
+os.environ["DJANGO_SETTINGS_MODULE"] = "edusite.settings.production"
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()

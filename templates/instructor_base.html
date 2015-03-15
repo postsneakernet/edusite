@@ -36,12 +36,12 @@
       <div class="container">
         <nav class="blog-nav">
           {% block nav %}
-          <a class="blog-nav-item active" href="/">Home</a>
-          <a class="blog-nav-item" href="/courses/">Courses</a>
-          <a class="blog-nav-item" href="/detail/research/">Research</a>
-          <a class="blog-nav-item" href="/detail/lab/">Lab</a>
-          <a class="blog-nav-item" href="/detail/about/">About</a>
-          <a class="blog-nav-item" href="/misc/">Misc</a>
+          <a class="blog-nav-item active" href="{% url 'index' %}">Home</a>
+          <a class="blog-nav-item" href="{% url 'course_index' %}">Courses</a>
+          <a class="blog-nav-item" href="{% url 'research' %}">Research</a>
+          <a class="blog-nav-item" href="{% url 'lab' %}">Lab</a>
+          <a class="blog-nav-item" href="{% url 'about' %}">About</a>
+          <a class="blog-nav-item" href="{% url 'misc_index' %}">Misc</a>
           {% endblock %}
 
     <!-- Search form -->
@@ -95,7 +95,7 @@
     <div class="blog-footer">
       <p>Site developed using Django and Bootstrap.</p>
       <p>
-      <a href="/admin/">Admin</a>
+      <a href="{% url 'admin:index' %}">Admin</a>
       </p>
     </div>
 

@@ -34,10 +34,10 @@
     <div class="blog-masthead">
       <div class="container">
         <nav class="blog-nav">
-          <a href="/">
+        <a href="{% url 'index' %}">
             <span style="color:white" class="glyphicon glyphicon-home"></span>
           </a>
-          <a class="blog-nav-item" href="/courses/">Courses</a>
+          <a class="blog-nav-item" href="{% url 'course_index' %}">Courses</a>
           {% block nav %}
           <a class="blog-nav-item active" href="{% url 'course_home' course_slug=course.slug %}">{{ course.title }}</a>
           <a class="blog-nav-item" href="{% url 'course_home' course.slug %}syllabus/">Syllabus</a>
@@ -100,7 +100,7 @@
     <div class="blog-footer">
       <p>Site developed using Django and Bootstrap.</p>
       <p>
-      <a href="/admin/">Admin</a>
+      <a href="{% url 'admin:index' %}">Admin</a>
       </p>
     </div>
 

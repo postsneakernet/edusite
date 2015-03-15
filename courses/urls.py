@@ -5,8 +5,6 @@ urlpatterns = patterns(
     'courses',
     url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/get/$', 
             'views.get_files', name="get_files"),
-    #url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/pdf/$', 
-            #'views.get_pdf', name="get_pdf"),
     url(r'^(?P<course_slug>[-\w]+)/modules/(?P<module_slug>[-\w]+)/$', 
             'views.module_detail', name="module_detail"),
     url(r'^(?P<course_slug>[-\w]+)/modules/$', 'views.modules', name="modules"),
