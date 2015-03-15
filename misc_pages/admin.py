@@ -15,7 +15,7 @@ class MiscPageAdmin(MarkdownModelAdmin):
         else:
             islug = "misc-page-slug"
 
-        return "/media/lessons/" + islug + "/filename"
+        return "/~zalewski/media/misc_pages/" + islug + "/file"
 
     inlines = [FileInline, ]
     list_display = ("title", "created", "is_external_link", "publish")
