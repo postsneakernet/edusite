@@ -53,13 +53,6 @@ def module_detail(request, course_slug, module_slug):
         'files': files, 'module': module})
 
 
-'''
-def get_pdf(request, course_slug, module_slug):
-    fname = module_slug + ".pdf"
-    httpf = "attachmet; filename=" + fname
-'''
-
-
 def get_files(request, course_slug, module_slug):
     f = File.objects.filter(module__slug=module_slug)
     fname = module_slug + ".zip"
