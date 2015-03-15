@@ -17,7 +17,7 @@ class MiscPageAdmin(MarkdownModelAdmin):
 
         return "/media/lessons/" + islug + "/filename"
 
-    inline = [FileInline, ]
+    inlines = [FileInline, ]
     list_display = ("title", "created", "is_external_link", "publish")
     fieldsets = (
         (None, {
