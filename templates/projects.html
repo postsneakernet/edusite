@@ -10,7 +10,7 @@
 <a class="blog-nav-item" href="{% url 'syllabus' course_slug=course.slug %}">Syllabus</a>
 <a class="blog-nav-item" href="{% url 'modules' course_slug=course.slug %}">Modules</a>
 <a class="blog-nav-item" href="{% url 'assignments' course_slug=course.slug %}">Assignments</a>
-<a class="blog-nav-item projects" href="{% url 'projects' course_slug=course.slug %}">Projects</a>
+<a class="blog-nav-item active" href="{% url 'projects' course_slug=course.slug %}">Projects</a>
 {% endblock %}
 
 {% block title %}
